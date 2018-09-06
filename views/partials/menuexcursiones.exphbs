@@ -1,0 +1,36 @@
+<body onload="cargarMenuExcursiones()">
+    
+  <!--   Logo -->
+ 
+<div class="container">
+ <div class="row">
+      <div class="jumbotron col-md-8 col-sm-8">
+        <a href="/">
+          <img id="imgLogo" src="images/logo1.png" alt="Logo">
+        </a>
+      </div>
+      <div class="jumbotron col-md-2 col-sm-2">
+        <a href="/menu">Regresar a menu
+        </a>
+      </div>
+      <div class="jumbotron col-md-2 col-sm-2">
+        <h1 id="nombre"></h1>
+      </div>
+ </div>
+</div>
+
+
+        <!-- section Start -->
+       <section id="feature">
+          <div class="row">
+            <div class="col-md-6 col-sm-6" >
+                <a href="/crearexcursion"><button id="btncrear">Crear excursión</button></a>
+            </div>
+            <div class="col-md-6 col-sm-6" >
+                <a href="/listarexcursionesUsuario"> <button id="btnleer">Leer excursión</button></a>
+            </div>
+             
+          </div>
+     </section>
+      
+    </body>

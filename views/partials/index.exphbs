@@ -1,0 +1,20 @@
+<body onload="cargarIndex()">
+    
+  <!--   Logo -->
+ 
+<div class="container">
+  <div class="jumbotron">
+    <a href="/">
+      <img id="imgLogo" src="images/logo1.png" alt="Logo">
+    </a>
+    <a href="/menu">menu
+    </a>
+  </div>
+</div>
+       <section id="feature">
+          <div class="row" id="listaralumnos">
+            
+          </div>
+     </section>
+      
+    </body>
