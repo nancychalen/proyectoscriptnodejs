@@ -1,0 +1,26 @@
+<body onload="listarExcursionUsuario()">
+        <header>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-8">
+                    <a class="navbar-brand" href="/">
+                      <img id="imgLogo" src="../images/logo1.png" alt="Logo">
+                    </a>
+                 </div>
+                 <div class="col-md-2 col-sm-2">
+                    <h1 id="nombre"></h1>
+                 </div>
+                 <div class="col-md-2 col-sm-2">
+                    <a class="navbar-brand" href="/menuexcursiones">Regresar</a>
+                 </div>
+               </div>
+              </div>
+        </header><!-- header close -->
+        
+        <div class="container">
+            <div class="row" id="listexcursion"> 
+                
+            </div>
+        </div>
+   
+</body>
