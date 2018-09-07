@@ -1,165 +1,38 @@
-class Usuario{
-    constructor(objres){
-        this.user = objres.user;
-        this.pass = objres.pass;
-        this.nombre = objres.nombre;
-        var excursiones = [];
-        $.each(objres.excursion, function(i, resultado){
-            var objexcursion = new Excursion();    
-                objexcursion.llenarobj(resultado);       
-            excursiones.push(objexcursion);  
-        })
-        
-        this.excursion = excursiones;
+function traducirvideo(btnV){
+    var valor=btnV.getAttribute("id");
+    var ruta = $('#linkvideo'+valor).val();
+    alert(ruta);
+    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = ruta.match(regExp);
+    var result;
+    if (match && match[2].length == 11) {
+        result=match[2];
+    } else {
+        result='error';
     }
-}
+    //alert(result);
+    //var myId = getId('http://www.youtube.com/watch?v=zbYf5_S7oJo');
 
-
-class Excursion{
-
-    llenarobj(resultado){
-        
-        this.titulo = resultado.titulo;
-        this.descripcion = resultado.descripcion;
-        this.portada = resultado.portada;
-        this.creditos = resultado.creditos;
-         var pasos = [];
-        $.each(resultado.pasos, function(i, respasos){
-            var objpasos = new Pasos();    
-                objpasos.llenarobjpasos(respasos);       
-            pasos.push(objpasos);  
-        })
-        
-        this.pasos = pasos; 
-        
-        
-    }
-    llenarattr(titulo,descripcion,creditos,portada,pasos){
-        
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.portada = portada;
-        this.creditos = creditos;
-        this.pasos = pasos; 
-        
-        
-    }
-}
-
-class Pasos{
+    $("#divVideoYT"+valor).html('<iframe width="560" height="315" src="//www.youtube.com/embed/' + result + '" frameborder="0" allowfullscreen></iframe>');
     
-    llenarobjpasos(respasos){
-        this.video = respasos.video;
-        
-        var objactividad = new Actividad();    
-        objactividad.llenarobjactividad(respasos.actividad);       
-          
-        this.actividad = objactividad; 
-    }
-    
-    llenarattrpasos(video,actividad){
-        this.video = video;
-        this.actividad = actividad; 
-    }
-    
-}
-
-class Actividad{
-    
-    
-      
-    llenarobjactividad(objactividad){
-        this.audio = objactividad.audio;
-        this.imagen1 = objactividad.imagen1;
-        this.imagen2 = objactividad.imagen2;
-        this.imagen3 = objactividad.imagen3;
-        this.respuesta = objactividad.respuesta;
-    }
-    llenarattractividad(audio,imagen1,imagen2,imagen3,respuesta){
-        this.audio = audio;
-        this.imagen1 = imagen1;
-        this.imagen2 = imagen2;
-        this.imagen3 = imagen3;
-        this.respuesta = respuesta;
-    }
-  
-}
-//var fileExtensionV;
-//$('#video').change(function () {
-//    alert(fileExtensionV);
-//    //obtenemos un array con los datos del archivo
-//    var file = $("#video")[0].files[0];
-//    //obtenemos el nombre del archivo
-//    var fileName = file.name;
-//    //obtenemos la extensión del archivo
-//    fileExtensionV = fileName.substring(fileName.lastIndexOf('.') + 1);
-//    //obtenemos el tamaño del archivo
-//    var fileSize = file.size;
-//    //obtenemos el tipo de archivo image/png ejemplo
-//    var fileType = file.type;
-//    //mensaje con la información del archivo
-//    //showMessageE("<span>Archivo para subir: " + fileName + ", peso total: " + fileSize + " bytes.</span>");
-//    
-//});
-// var fileExtensionP;
-//$('#imgPortada').change(function () {
-//    //obtenemos un array con los datos del archivo
-//    var file = $("#imgPortada")[0].files[0];
-//    //obtenemos el nombre del archivo
-//    var fileName = file.name;
-//    //obtenemos la extensión del archivo
-//    fileExtensionP = fileName.substring(fileName.lastIndexOf('.') + 1);
-//    //obtenemos el tamaño del archivo
-//    var fileSize = file.size;
-//    //obtenemos el tipo de archivo image/png ejemplo
-//    var fileType = file.type;
-//});
-//var fileExtensionA;
-//$('#audio').change(function () {
-//    //obtenemos un array con los datos del archivo
-//    var file = $("#audio")[0].files[0];
-//    //obtenemos el nombre del archivo
-//    var fileName = file.name;
-//    //obtenemos la extensión del archivo
-//    fileExtensionA = fileName.substring(fileName.lastIndexOf('.') + 1);
-//    //obtenemos el tamaño del archivo
-//    var fileSize = file.size;
-//    //obtenemos el tipo de archivo image/png ejemplo
-//    var fileType = file.type;
-//});
-//var fileExtensionI;
-//$('#imagen').change(function () {
-//    //obtenemos un array con los datos del archivo
-//    var file = $("#imagen")[0].files[0];
-//    //obtenemos el nombre del archivo
-//    var fileName = file.name;
-//    //obtenemos la extensión del archivo
-//    fileExtensionI = fileName.substring(fileName.lastIndexOf('.') + 1);
-//    //obtenemos el tamaño del archivo
-//    var fileSize = file.size;
-//    //obtenemos el tipo de archivo image/png ejemplo
-//    var fileType = file.type;
-//});
-//var arrVideos=[];
-function subirVideo(btnV){
-    var valor= btnV.getAttribute("id");
-    var formData = new FormData($(".formularioVideo"+valor)[0]);
-    
-    $.ajax({
-        url: '/subir',
-        type: 'POST',
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            //if (isImage(fileExtensionV)) {
-                //$("#di"+valor).html("<img  class='imgPregunta' id='videoExcursion' src='../excursiones/"+data+"'></img>")}
-                $("#di"+valor).html("<video id='videoExcursion' class='styleVideo' control><source src='../excursiones/"+data+"' type='video/mp4'></video>")
-        }
-      //  }
-    });
 };
+
+//function subirVideo(btnV){
+//    var valor= btnV.getAttribute("id");
+//    var formData = new FormData($(".formularioVideo"+valor)[0]);
+//    
+//    $.ajax({
+//        url: '/subir',
+//        type: 'POST',
+//        data: formData,
+//        cache: false,
+//        contentType: false,
+//        processData: false,
+//        success: function (data) {
+//                $("#di"+valor).html("<video id='videoExcursion' class='styleVideo' control><source src='../excursiones/"+data+"' type='video/mp4'></video>")
+//        }
+//    });
+//};
 
 function subirAudio(btnA){
     var valor= btnA.getAttribute("id");
@@ -173,12 +46,7 @@ function subirAudio(btnA){
         contentType: false,
         processData: false,
         success: function (data) {
-            //alert(data);
-            //if (isImage(fileExtensionA)) {
-                //alert(valor);
-                //arrVideos.push();
                 $("#divAudio"+valor).html("<audio class='styleAudio' controls><source src='../excursiones/"+data+"' type='audio/mp3' ></audio>")
-            //}
         }
     });
 };
@@ -194,12 +62,7 @@ function subirImagen(btnI){
         contentType: false,
         processData: false,
         success: function (data) {
-            //alert(data);
-         //   if (isImage(fileExtensionI)) {
-                //alert(valor);
-                //arrVideos.push();
                 $("#div"+valor).html("<img class='imgPregunta' src='../excursiones/"+data+"'></img>")
-            //}
         }
     });
 };
@@ -258,27 +121,6 @@ $('.añadirAvatar').click(function () {
         }
     });
 });
-//function isImage(extension) {
-//    switch (extension.toLowerCase()) {
-//        case 'jpg':
-//        case 'gif':
-//        case 'png':
-//        case 'jpeg':
-//            return true;
-//            break;
-//        case 'mp3':
-//        case 'wav':
-//        case 'mp4':
-//        case 'm4a':
-//        case 'ogg':
-//            return true;
-//            break;
-//        default:
-//            return false;
-//            break;
-//    }
-//};
-
 function listarExcursion(){
     //alert(localStorage.getItem("varidAlumno"));
     formData={
@@ -327,7 +169,7 @@ function listarExcursion(){
 
 function listarExcursionUsuario(){
     //alert(localStorage.getItem("varidAlumno"));
-    var idusers=1;
+    var idusers=localStorage.getItem("usuariologeado");
     $.ajax({
         url: '/fcargarusuarioporid',
         type: 'POST',
@@ -337,7 +179,6 @@ function listarExcursionUsuario(){
         cache: false,
         success: function (data) {
             $("#nombre").html(data[0].nombre);
-     
         }
     });
     $.ajax({
@@ -357,7 +198,6 @@ function listarExcursionUsuario(){
             console.log(data);
         }
     });
-    
 };
 
 function cargarIndex(){
@@ -371,7 +211,7 @@ function cargarIndex(){
         processData: false,
         success: function (data) {
             $.each(data, function(i, result){
-            $("#listaralumnos").append("<div class='col-md-4 col-sm-4'><div><button onclick='pasarAlumno("+result.id+")'><img class='listaimg' src='"+result.avatar+"'/></button><h1>"+result.nombre+"</h1><p>"+result.puntaje+"</p></button></div></div>");
+            $("#listaralumnos").append("<div class='col-md-4 col-sm-4'><div><button onclick='pasarAlumno("+result.id+")'><img width='250px' src='"+result.avatar+"'/></button><h1 class='textoalumnos'>"+result.nombre+"</h1><p class='textoalumnos'>"+result.puntaje+"</p></button></div></div>");
         });
         },
         error: function (data) {
@@ -379,11 +219,10 @@ function cargarIndex(){
             console.log(data);
         }
     });
-    
 };
 
 function listarAlumnos(){
-    var idusuario="1";
+    var idusuario=localStorage.getItem("usuariologeado");
     $.ajax({
         url: '/fcargarusuarioporid',
         type: 'POST',
@@ -417,11 +256,76 @@ function listarAlumnos(){
             console.log(data);
         }
     });
-    
 };
+
+function listarUsuarios(){
+    var idusuario=localStorage.getItem("usuariologeado");
+    $.ajax({
+        url: '/fcargarusuarioporid',
+        type: 'POST',
+        data: {
+            iduser:idusuario
+        },
+        cache: false,
+        success: function (data) {
+            $("#nombre").html(data[0].nombre);
+        },
+        error: function (data) {
+            alert("error");
+            console.log(data);
+        }
+    });
+    $.ajax({
+        url: '/flistarusuarios',
+        type: 'GET',
+        //data solo usas si vas a enviar algo con post
+        //data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            $.each(data, function(i, resultusuario){
+            $("#listarusuarios").append("<div class='col-md-4 col-sm-4'><div><h1>"+resultusuario.id+"</h1><h1>"+resultusuario.nombre+"</h1><h1>"+resultusuario.usuario+"</h1><h1>"+resultusuario.pass+"</h1><button onclick='pasareditarusuario("+resultusuario.id+")'>Editar</button><button onclick='eliminarUsuario("+resultusuario.id+")'>Eliminar</button></div></div>");
+        });
+        },
+        error: function (data) {
+            alert("error");
+            console.log(data);
+        }
+    });
+};
+
+function validarsesion(){
+    var usuario=$("#usuario").val();
+    var pass=$("#pass").val();
+    $.ajax({
+        url: '/flistarusuarios',
+        type: 'GET',
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            var flag=0;
+            $.each(data, function(i, resultusuario){
+                if(usuario==resultusuario.usuario && pass==resultusuario.pass){
+                    localStorage.setItem("usuariologeado",resultusuario.id);
+                    window.location = "/menu";
+                    flag=1;
+                }
+            });
+            if(flag==0){
+                alert("USUARIO O CONTRASEÑA INCORRECTA");
+            }
+        },
+        error: function (data) {
+            alert("error");
+            console.log(data);
+        }
+    });
+};
+
 function cargarMenu(){
-    //localStorage.getItem("varPasar");
-    var idusuario="1";
+    var idusuario=localStorage.getItem("usuariologeado");
     $.ajax({
         url: '/fcargarusuarioporid',
         type: 'POST',
@@ -441,7 +345,7 @@ function cargarMenu(){
 
 function cargarMenuExcursiones(){
     //localStorage.getItem("varPasar");
-    var idusuario="1";
+    var idusuario=localStorage.getItem("usuariologeado");
     $.ajax({
         url: '/fcargarusuarioporid',
         type: 'POST',
@@ -459,6 +363,7 @@ function cargarMenuExcursiones(){
     });
     
 };
+
 function cargarAlumno(){
     //localStorage.getItem("varPasar");
     var id=localStorage.getItem("editaridAlumno");
@@ -479,11 +384,31 @@ function cargarAlumno(){
             console.log(data);
         }
     });
-    
+};
+
+function cargarUsuario(){
+    //localStorage.getItem("varPasar");
+    var id=localStorage.getItem("editaridUsuario");
+    $.ajax({
+        url: '/fcargarusuarioporid',
+        type: 'POST',
+        data: {
+            iduser:id
+        },
+        cache: false,
+        success: function (data) {
+            $("#nombre").attr("value",data[0].nombre);
+            $("#usuario").attr("value",data[0].usuario);
+            $("#pass").attr("value",data[0].pass);
+        },
+        error: function (data) {
+            alert("error");
+            console.log(data);
+        }
+    });
 };
 
 function guardareditarAlumno(){
-    //localStorage.getItem("varPasar");
     var id=localStorage.getItem("editaridAlumno");
     $.ajax({
         url: '/feditaralumnoporid',
@@ -497,6 +422,27 @@ function guardareditarAlumno(){
         cache: false,
         success: function (data) {
             window.location = "/menualumnos";
+        },
+        error: function (data) {
+            alert("error");
+            console.log(data);
+        }
+    });
+};
+function guardareditarUsuario(){
+    var id=localStorage.getItem("editaridUsuario");
+    $.ajax({
+        url: '/feditarusuarioporid',
+        type: 'POST',
+        data: {
+            idusuario:id,
+            nombre:$("#nombre").val(),
+            usuario:$("#usuario").val(),
+            pass:$("#pass").val(),
+        },
+        cache: false,
+        success: function (data) {
+            window.location = "/menuusuarios";
         },
         error: function (data) {
             alert("error");
@@ -589,6 +535,10 @@ function pasareditarAlumno(idalumno){
     localStorage.setItem("editaridAlumno",idalumno);
     window.location = "/editaralumno";
 }
+function pasareditarusuario(idusuario){
+    localStorage.setItem("editaridUsuario",idusuario);
+    window.location = "/editarusuario";
+}
 function pasarEditar(pos){
     localStorage.setItem("varPasarEditar",pos);
     window.location = "/editarexcursion";
@@ -641,6 +591,100 @@ function eliminarAlumno(posalumno){
     });
      
 }
+function eliminarUsuario(posusuario){
+    var usuariologeado=localStorage.getItem("usuariologeado");
+    $.ajax({
+        url: '/flistarexcursionesporusuario',
+        type: 'POST',
+        data: {
+            idusuario:posusuario
+        },
+        cache: false,
+        success: function (data) {
+            //alert(1);
+            var flag=0;
+            $.each(data, function(i, result){
+                flag++;
+                $.ajax({
+                    url: '/feliminarpasos',
+                    method: 'POST',
+                    data: {
+                        "idExcursion": result.id
+                    },
+                    success: function (data) {
+                        $.ajax({
+                            url: '/feliminarexcursion',
+                            method: 'POST',
+                            data: {
+                                "idExcursion": result.id
+                            },
+                            success: function (data) {
+                                $.ajax({
+                                    url: '/feliminarusuario',
+                                    method: 'POST',
+                                    data: {
+                                        "idusuario": posusuario
+                                    },
+                                    success: function (data) {
+                                       //alert(3);
+                                       if(usuariologeado==posusuario){
+                                           window.location.href="/";
+                                       }else{
+                                           window.location.href="/menuusuarios";
+                                       }
+                                       
+                                    },
+                                    error: function (data) {
+                                        alert("error");
+                                        console.log(data);
+                                    }
+                                });
+                                
+                            },
+                            error: function (data) {
+                                alert("error");
+                                console.log(data);
+                            }
+                        });
+                    },
+                    error: function (data) {
+                        alert("error");
+                        console.log(data);
+                    }
+                });
+            });
+            //alert("2");
+            if(flag==0){
+                $.ajax({
+                    url: '/feliminarusuario',
+                    method: 'POST',
+                    data: {
+                        "idusuario": posusuario
+                    },
+                    success: function (data) {
+                       if(usuariologeado==posusuario){
+                           window.location.href="/";
+                       }else{
+                           window.location.href="/menuusuarios";
+                       }
+                    },
+                    error: function (data) {
+                        alert("error");
+                        console.log(data);
+                    }
+                });
+            }
+            
+        },
+        error: function (data) {
+            alert("error");
+            console.log(data);
+        }
+    });
+    
+     
+     
+}
 var cantVideos=1;
 var cantOpciones=3;
 $('#guardarExcursion').click(function () {
@@ -654,7 +698,7 @@ $('#guardarExcursion').click(function () {
                 creditos:$("#creditos").val(),
                 descripcion:$("#descripcion").val(),
                 portada:$("#portada").attr('src'),
-                idUsuario:1
+                idUsuario:localStorage.getItem("usuariologeado")
             }
             
             $.ajax({
@@ -668,10 +712,10 @@ $('#guardarExcursion').click(function () {
                         success: function (data) {
                             var idExc=data[0].id;
                             console.log($('.contPaso'));
-                            alert("ui: "+idExc);
+                            //alert("ui: "+idExc);
                             
                             $.each($('.contPaso'), function(i, resAudio){
-                             alert("paso");
+                             //alert("paso");
 
                               var audio=resAudio.firstElementChild.firstChild.firstChild.getAttribute("src");
                               var img1=$('.contPrg').children()[cantOpciones].firstElementChild.firstChild.getAttribute("src");
@@ -679,7 +723,7 @@ $('#guardarExcursion').click(function () {
                               var img3=$('.contPrg').children()[cantOpciones+2].firstElementChild.firstChild.getAttribute("src");
                               cantOpciones=cantOpciones+3;
                               var res= $('.respuesta')[i].value;
-                              var video=$('#escenas').children()[i].children[1].firstChild.firstChild.getAttribute("src");
+                              var video=$("#divVideoYTv"+(i+1)).children().attr("src");
                               formData={
                                   pregunta:audio,
                                   respuesta:res,
@@ -704,14 +748,11 @@ $('#guardarExcursion').click(function () {
                                     }
                                 });
                               });
-                            //window.location.href="/listarexcursiones";
+                            window.location.href="/listarexcursionesUsuario";
                         }
                     });
                 }
             });
-            
-            
-            
         }else{
             alert("Llene todos los campos!");
         }
@@ -732,7 +773,23 @@ $('#guardarAlumno').click(function () {
                    window.location.href="/menualumnos";
                 }
             });
-       
+});
+
+$('#guardarUsuario').click(function () {
+            formData={
+                nombre:$("#nombre").val(),
+                usuario:$("#usuario").val(),
+                pass:$("#pass").val()
+            }
+            console.log(formData);
+            $.ajax({
+                url: '/fguardarUsuario',
+                method: 'POST',
+                data:formData,
+                success: function (data) {
+                   window.location.href="/menuusuarios";
+                }
+            });
 });
 
 $('#nuevoVideo').click(function () {
@@ -741,14 +798,11 @@ $('#nuevoVideo').click(function () {
     if(errores==0){
         if(cantVideos!=5){
             cantVideos++;
-            $('#escenas').append("<div class='row crearVI'><div class='col-md-12 col-sm-12'><h2 class='txtportada'>AÑADIR VIDEO</h2></div><div class='col-md-4 col-sm-4 paso' id='div"+cantVideos+"'></div>\
-                            <div class='col-md-4 col-sm-4'>\
-                            <form enctype='multipart/form-data' class='formularioVideov"+cantVideos+"'>\
-                                <input name='archivo' type='file' id='video'/>\
-                                <br/><br/>\
-                                <input type='button' class='añadirvideo' value='añadir'  id='v"+cantVideos+"' onclick='subirVideo(this)'/><br/>\
-                            </form>\
-                            </div>\
+            $('#escenas').append("<div class='row crearVI'><div class='col-md-12 col-sm-12'><h2 class='txtportada'>AÑADIR VIDEO</h2></div>\
+                                 <div class='col-md-6 col-sm-6'>\
+                            <input name='linkvideo' type='text' id='linkvideov"+cantVideos+"' placeholder='Inserte link de Youtube'/>\
+                            <button id='v"+cantVideos+"' onclick='traducirvideo(this)'>AÑADIR</button></div>\
+                        <div class='col-md-4 col-sm-4 paso' id='divVideoYTv"+cantVideos+"'></div>\
                             <div class='col-md-12 col-md-offset-12'><br><br>\
                         <h2 class='txtportada'>PLANEA TU ACTIVIDAD</h2>\
                         <div class='row'>\
@@ -885,14 +939,11 @@ function cargarEditar(){
                         success: function (datapasos) {
                             $.each(datapasos, function(i, resultpaso){
                                 console.log("llenar");
-                                $('#escenas').append("<div class='row crearVI'><div class='col-md-12 col-sm-12'><h2 class='txtportada'>AÑADIR   VIDEO</h2></div><div class='col-md-4 col-sm-4 paso' id='div"+cantVideos+"'><video controls class='listaimg' ><source src='"+resultpaso.video+"' width='50px'></video></div>\
-                                        <div class='col-md-4 col-sm-4'>\
-                                        <form enctype='multipart/form-data' class='formularioVideov"+cantVideos+"'>\
-                                            <input name='archivo' type='file' id='video'/>\
-                                            <br/><br/>\
-                                            <input type='button' class='añadirvideo' value='añadir'  id='v"+cantVideos+"' onclick='subirVideo(this)'/><br/>\
-                                        </form>\
-                                        </div>\
+                                $('#escenas').append("<div class='row crearVI'><div class='col-md-12 col-sm-12'><h2 class='txtportada'>AÑADIR   VIDEO</h2></div>\
+                                    <div class='col-md-6 col-sm-6'>\
+                            <input name='linkvideo' type='text' id='linkvideov"+cantVideos+"' placeholder='Inserte link de Youtube'/>\
+                            <button id='v"+cantVideos+"' onclick='traducirvideo(this)'>AÑADIR</button></div>\
+                            <div class='col-md-4 col-sm-4 paso' id='divVideoYTv"+cantVideos+"'><iframe width='360' src='" + resultpaso.video + "' frameborder='0' allowfullscreen></iframe></div>\
                                         <div class='col-md-12 col-md-offset-12'><br><br><br><br><br><br><br><br>\
                                     <h2 class='txtportada'>PLANEA TU ACTIVIDAD</h2>\
                                     <div class='row'>\
@@ -981,9 +1032,7 @@ $('#guardareditar').click(function () {
                   cantOpciones=cantOpciones+3;
                   var res= $('.respuesta')[i].value;
                   var idpaso= $('#idpaso').html();  
-                  //console.log($('#escenas').childNodes);
-                  //console.log($('#escenas').children());
-                  var video=$('#escenas').children()[i].children[1].firstChild.firstChild.getAttribute("src");
+                  var video=$("#divVideoYTv"+(i+1)).children().attr("src");
                 
                   formData={
                       pregunta:audio,
@@ -1001,7 +1050,7 @@ $('#guardareditar').click(function () {
                         data: formData,
                         cache: false,
                         success: function (datapasos) {
-                            alert("guardopaso");
+                            //alert("guardopaso");
                         },
                           error: function (data) {
                             alert("errorPaso");
@@ -1024,7 +1073,7 @@ $('#guardareditar').click(function () {
                 data: formDataEx,
                 success: function (data) {
                     alert("Se editó correctamente la excursion");
-                    window.location.href="/listarexcursiones";
+                    window.location.href="/listarexcursionesUsuario";
                 },
                 error: function (data) {
                             alert("errorEx");
