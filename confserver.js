@@ -66,8 +66,17 @@ app.get('/menu', function (req,res) {
 app.get('/nuevoalumno', function (req,res) {
 	res.render('partials/nuevoalumno');
 });
+app.get('/nuevousuario', function (req,res) {
+	res.render('partials/nuevousuario');
+});
 app.get('/editaralumno', function (req,res) {
 	res.render('partials/editaralumno');
+});
+app.get('/editarusuario', function (req,res) {
+	res.render('partials/editarusuario');
+});
+app.get('/iniciarsesion', function (req,res) {
+	res.render('partials/iniciarsesion');
 });
 
 app.get('/flistarexcursiones', (req, res, next) => {
@@ -170,6 +179,26 @@ app.get('/flistaralumnos', (req, res, next) => {
     });
 });
 
+app.get('/flistarusuarios', (req, res, next) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        client.query('SELECT * FROM usuarios', function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+
+            client.end();
+            return res.json(result.rows);
+            
+        }); 
+    });
+});
+
 app.post('/frecibirexcursion', (req, res) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
@@ -235,7 +264,7 @@ app.post('/fguardarAlumno', (req, res) => {
             return console.error('could not connect to postgres', err);
             return res.status(500).json({success: false, data: err});
         }
-        client.query("INSERT INTO alumnos (nombre,puntaje,avatar) VALUES ('"+req.body.nombre+"','"+req.body.puntaje+"','"+req.body.avatar+"');", function(err, result) {
+        client.query("INSERT INTO alumnos (nombre,puntaje,avatar) VALUES ('"+req.body.nombre+"',"+req.body.puntaje+",'"+req.body.avatar+"');", function(err, result) {
             if(err) {
                 return console.error('error running query paso', err);
             }
@@ -246,6 +275,27 @@ app.post('/fguardarAlumno', (req, res) => {
         }); 
     });
 });
+
+
+app.post('/fguardarUsuario', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+        client.query("INSERT INTO usuarios (nombre,usuario,pass) VALUES ('"+req.body.nombre+"','"+req.body.usuario+"','"+req.body.pass+"');", function(err, result) {
+            if(err) {
+                return console.error('error running query paso', err);
+            }
+
+            client.end();
+            return res.json(result.rows);
+            
+        }); 
+    });
+});
+
 
 app.get('/ultimoidEx', (req, res) => {
     var client = new pg.Client(conString);
@@ -290,6 +340,27 @@ app.post('/feditaralumnoporid', (req, res) => {
         }
         console.error(req.body.id);
         client.query("UPDATE alumnos SET nombre='"+req.body.nombre+"',puntaje='"+req.body.puntaje+"',avatar='"+req.body.avatar+"' WHERE id="+req.body.idalumno+";", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+
+            client.end();
+            return res.json(result.rows);
+            
+        }); 
+    });
+});
+
+
+app.post('/feditarusuarioporid', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+        console.error(req.body.id);
+        client.query("UPDATE usuarios SET nombre='"+req.body.nombre+"',usuario='"+req.body.usuario+"',pass='"+req.body.pass+"' WHERE id="+req.body.idusuario+";", function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }
@@ -371,6 +442,25 @@ app.post('/feliminaralumno', (req, res) => {
         client.query("DELETE FROM alumnos WHERE id="+req.body.idalumno+";", function(err, result) {
             if(err) {
                 return console.error('error running query', err);
+            }
+
+            client.end();
+            return res.json(result.rows);
+            
+        }); 
+    });
+});
+app.post('/feliminarusuario', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        client.query("DELETE FROM usuarios WHERE id="+req.body.idusuario+";", function(err, result) {
+            if(err) {
+                return console.error('error running query elus', err);
             }
 
             client.end();
