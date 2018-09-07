@@ -12,7 +12,7 @@
                         <a class="navbar-brand" href="/">
                           <img id="imgLogo" src="../images/logo1.png" alt="Logo">
                         </a>
-                        <a class="navbar-brand" href="/listarexcursiones">Regresar</a>
+                        <a class="navbar-brand" href="/listarexcursionesUsuario">Regresar</a>
                       </div>
                       <div class="col-md-8 col-sm-8"> 
                           <button id="guardarExcursion">GUARDAR</button>
@@ -64,15 +64,12 @@
                 <div id="escenas">
                     <div class="row crearVI">
                         <div class="col-md-12 col-sm-12"> <h2 class="txtportada">AÑADIR VIDEO</h2></div>
-                        <div class="col-md-4 col-sm-4 paso" id="div1"></div>
-                        <div class="col-md-4 col-sm-4">
-                            <form enctype="multipart/form-data" class="formularioVideov1">
-                                <input name="archivo" type="file" id="video" />
-                                <br/><br/>
-                                <input type="button" class="añadirvideo" value="añadir" id="v1" onclick="subirVideo(this)"/>
-                                <br />
-                            </form>
+                        
+                        <div class="col-md-6 col-sm-6">
+                            <input name="linkvideo" type="text" id="linkvideov1" placeholder="Inserte link de Youtube"/>
+                            <button id='v1' onclick="traducirvideo(this)">AÑADIR</button>
                         </div>
+                        <div class="col-md-4 col-sm-4 paso" id="divVideoYTv1"></div>
                         <div class="col-md-12 col-md-offset-12" >
                             <br> <br> <h2 class="txtportada">PLANEA TU ACTIVIDAD</h2><br>
                             <div class="row">

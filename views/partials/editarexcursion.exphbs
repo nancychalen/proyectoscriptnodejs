@@ -17,7 +17,7 @@
                           <img id="imgLogo" src="../images/logo1.png" alt="Logo">
                         </a>
                       </div>
-                      <a class="navbar-brand" href="/listarexcursiones">Regresar</a>
+                      <a class="navbar-brand" href="/listarexcursionesUsuario">Regresar</a>
                       <div class="col-md-8 col-sm-8"> 
                           <button id="guardareditar">GUARDAR</button>
                       </div>

@@ -4,9 +4,9 @@
  
 <div class="container">
  <div class="row">
-      <div class="jumbotron col-md-8 col-sm-8">
+      <div class="jumbotron col-md-6 col-sm-6">
         <a href="/">
-          <img id="imgLogo" src="images/logo1.png" alt="Logo">
+          <img width='100px' src="images/logout.png" alt="Logo">
         </a>
       </div>
       <div class="col-md-4 col-sm-4">
