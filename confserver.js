@@ -51,8 +51,11 @@ app.get('/listarexcursionesAlumno', function (req,res) {
 app.get('/listarexcursionesUsuario', function (req,res) {
 	res.render('partials/listarexcursionesUsuario');
 });
-app.get('/excursion', function (req,res) {
-	res.render('partials/excursion');
+app.get('/leerexcursionUsuario', function (req,res) {
+	res.render('partials/leerexcursionUsuario');
+});
+app.get('/leerexcursionAlumno', function (req,res) {
+	res.render('partials/leerexcursionAlumno');
 });
 app.get('/editarexcursion', function (req,res) {
 	res.render('partials/editarexcursion');
@@ -311,6 +314,25 @@ app.get('/ultimoidEx', (req, res) => {
     });
 });
 
+app.post('/fguardarpuntajealumno', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+        console.error(req.body.id);
+        client.query("UPDATE alumnos SET puntaje="+req.body.nvpuntaje+" WHERE id="+req.body.idalumno+";", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+
+            client.end();
+            return res.json(result.rows);
+            
+        }); 
+    });
+});
 app.post('/fguardarEditarExcursion', (req, res) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
