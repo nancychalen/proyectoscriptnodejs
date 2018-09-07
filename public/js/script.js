@@ -1,7 +1,7 @@
 function traducirvideo(btnV){
     var valor=btnV.getAttribute("id");
     var ruta = $('#linkvideo'+valor).val();
-    alert(ruta);
+    //alert(ruta);
     var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     var match = ruta.match(regExp);
     var result;
@@ -16,23 +16,6 @@ function traducirvideo(btnV){
     $("#divVideoYT"+valor).html('<iframe width="560" height="315" src="//www.youtube.com/embed/' + result + '" frameborder="0" allowfullscreen></iframe>');
     
 };
-
-//function subirVideo(btnV){
-//    var valor= btnV.getAttribute("id");
-//    var formData = new FormData($(".formularioVideo"+valor)[0]);
-//    
-//    $.ajax({
-//        url: '/subir',
-//        type: 'POST',
-//        data: formData,
-//        cache: false,
-//        contentType: false,
-//        processData: false,
-//        success: function (data) {
-//                $("#di"+valor).html("<video id='videoExcursion' class='styleVideo' control><source src='../excursiones/"+data+"' type='video/mp4'></video>")
-//        }
-//    });
-//};
 
 function subirAudio(btnA){
     var valor= btnA.getAttribute("id");
@@ -451,16 +434,64 @@ function guardareditarUsuario(){
     });
     
 };
+
+function cargarexcursionalumno(){
+    formData={
+        idalumno:localStorage.getItem("varidAlumno")
+    }
+    $.ajax({
+        url: '/fcargaralumnoporid',
+        type: 'POST',
+        data: formData,
+        cache: false,
+        success: function (data) {
+            console.log(data);
+            $("#avatar").attr("src",data[0].avatar);
+            $("#nombre").html(data[0].nombre);
+            var nuevopuntaje=data[0].puntaje+1;
+            $("#puntaje").html(nuevopuntaje);
+            $.ajax({
+                url: '/fguardarpuntajealumno',
+                type: 'POST',
+                data: {
+                    nvpuntaje:nuevopuntaje,
+                    idalumno:localStorage.getItem("varidAlumno")
+                },
+                cache: false,
+                success: function (data) {
+                },
+                error: function (data) {
+                    alert("error");
+                    console.log(data);
+                }
+            });
+        },
+        error: function (data) {
+            alert("error");
+            console.log(data);
+        }
+    });
+    
+    
+    recibirExcursion();
+    };
+function cargarexcursionusuario(){
+    var idusers=localStorage.getItem("usuariologeado");
+    $.ajax({
+        url: '/fcargarusuarioporid',
+        type: 'POST',
+        data: {
+            iduser:idusers
+        },
+        cache: false,
+        success: function (data) {
+            $("#nombre").html(data[0].nombre);
+        }
+    });
+    recibirExcursion();
+    };
 function recibirExcursion(){
     var posExcursion=localStorage.getItem("varPasar");
-    var rol=localStorage.getItem("rol");
-    //alert("r: "+rol);
-    if(rol==0){
-        $("#regresar").attr("href","/listarexcursionesAlumno");
-    }else{
-        $("#regresar").attr("href","/listarexcursionesUsuario");
-    }
-    //alert(posExcursion);
     formData={
         idExcursion:posExcursion
     }
@@ -483,11 +514,10 @@ function recibirExcursion(){
                 success: function (datapasos) {
                     $.each(datapasos, function(i, resPaso){
                 $("#recibirPasos").append("<div class='col-md-12 col-sm-12 videoSolo row'>\
-                                            <div class='col-md-4 col-sm-4'><video controls class='listaimg'><source src='"+resPaso.video+"'></video></div>\
+                                            <div class='col-md-4 col-sm-4'><iframe width='300' height='200' src='"+resPaso.video+"' frameborder='0' allowfullscreen></iframe></div>\
                                             <div class='col-md-8 col-sm-8 row'><div class='col-md-12 col-sm-12'><audio controls><source src='"+resPaso.pregunta+"' type='audio/mp3' ></audio></div><br/><div class='col-md-4 col-sm-4'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img1' src='"+resPaso.opciona+"' class='listaimg'></button></div><div class='col-md-4 col-sm-4'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img2' src='"+resPaso.opcionb+"' class='listaimg'></button></div><div class='col-md-4 col-sm-4'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img3' class='listaimg'src='"+resPaso.opcionc+"'></button></div></div>");
 
                     });
-                    
                 },
                 error: function (data) {
                     alert("error");
@@ -501,6 +531,8 @@ function recibirExcursion(){
         }
     });
 }
+
+
 
 function validarRespuesta(btn, respuesta){
     var padre=btn.parentNode.parentNode;
@@ -519,13 +551,11 @@ function validarRespuesta(btn, respuesta){
 }
 function pasarusuarioexcursion(pos){
     localStorage.setItem("varPasar",pos);
-    localStorage.setItem("rol",1);
-    window.location = "/excursion";
+    window.location = "/leerexcursionUsuario";
 }
 function pasaralumnoexcursion(pos){
     localStorage.setItem("varPasar",pos);
-    localStorage.setItem("rol",0);
-    window.location = "/excursion";
+    window.location = "/leerexcursionAlumno";
 }
 function pasarAlumno(idalumno){
     localStorage.setItem("varidAlumno",idalumno);
@@ -686,7 +716,7 @@ function eliminarUsuario(posusuario){
      
 }
 var cantVideos=1;
-var cantOpciones=3;
+var cantOpciones=0;
 $('#guardarExcursion').click(function () {
     
         var errores=validarDatos();
@@ -916,7 +946,6 @@ function validarDatos() {
 };
 
 
-
 function cargarEditar(){
     var posEditar= localStorage.getItem("varPasarEditar");
     formData={
@@ -997,9 +1026,11 @@ function cargarEditar(){
                                                 </div>\
                                             </div>\
                                         </div>\
-                                        </div><h2 id='idpaso' style='display:none'>"+resultpaso.id+"</h2></div>");
+                                        </div><h2 class='idpaso' style='display:none'>"+resultpaso.id+"</h2></div>");
                                 cantVideos++;
+                                cantOpciones=cantOpciones+3;
                             });
+                            cantVideos--;
                         },
                         error: function (data) {
                             alert("error");
@@ -1031,32 +1062,61 @@ $('#guardareditar').click(function () {
                   var img3=$('.contPrg').children()[cantOpciones+2].firstElementChild.firstChild.getAttribute("src");
                   cantOpciones=cantOpciones+3;
                   var res= $('.respuesta')[i].value;
-                  var idpaso= $('#idpaso').html();  
                   var video=$("#divVideoYTv"+(i+1)).children().attr("src");
-                
-                  formData={
-                      pregunta:audio,
-                      respuesta:res,
-                      pasovideo:video,
-                      opciona:img1,
-                      opcionb:img2,
-                      opcionc:img3,
-                      id:idpaso
+                  //console.log($('.idpaso')[i].innerHTML);
+                  if($('.idpaso')[i]==undefined){
+                      //alert("nuevo");
+                      formData={
+                          pregunta:audio,
+                          respuesta:res,
+                          pasovideo:video,
+                          opciona:img1,
+                          opcionb:img2,
+                          opcionc:img3,
+                          idexcursion:posEditar
+                      }
+                      //console.log(formData);
+                      $.ajax({
+                            url: '/fguardarPaso',
+                            type: 'POST',
+                            data: formData,
+                            cache: false,
+                            success: function (datapasos) {
+                                //alert("guardopaso");
+                            },
+                              error: function (data) {
+                                alert("errorPaso");
+                                console.log(data);
+                            }
+                        });
+                  }else{
+                      var idpaso= $('.idpaso')[i].innerHTML;
+                      //alert(idpaso);
+                      formData={
+                          pregunta:audio,
+                          respuesta:res,
+                          pasovideo:video,
+                          opciona:img1,
+                          opcionb:img2,
+                          opcionc:img3,
+                          id:idpaso
+                      }
+                      //console.log(formData);
+                      $.ajax({
+                            url: '/feditarPaso',
+                            type: 'POST',
+                            data: formData,
+                            cache: false,
+                            success: function (datapasos) {
+                                //alert("guardopaso");
+                            },
+                              error: function (data) {
+                                alert("errorPaso");
+                                console.log(data);
+                            }
+                        });
                   }
-                  console.log(formData);
-                  $.ajax({
-                        url: '/feditarPaso',
-                        type: 'POST',
-                        data: formData,
-                        cache: false,
-                        success: function (datapasos) {
-                            //alert("guardopaso");
-                        },
-                          error: function (data) {
-                            alert("errorPaso");
-                            console.log(data);
-                        }
-                    });
+                  
             });
             formDataEx={
                  id:posEditar,

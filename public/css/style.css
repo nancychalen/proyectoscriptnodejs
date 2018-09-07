@@ -4,6 +4,23 @@
     text-align: center;
     font-size: 25px;
 }
+.btnGuardar{
+    border: none;
+background: #3a7999;
+color: #f2f2f2;
+padding: 20px;
+font-size: 30px;
+border-radius: 5px;
+position: relative;
+box-sizing: border-box;
+transition: all 500ms ease;
+}
+
+.btnGuardar:hover {
+background: rgba(0,0,0,0);
+color: #3a7999;
+box-shadow: inset 0 0 0 3px #3a7999;
+}
 #nombre{
     font-size: 50px;
     margin-top: 5px
@@ -526,7 +543,7 @@ color: tan;
 }
 .colorear{background-color: red;border: 5px solid red;}
 .separacion{margin: 40px 0px; background-color: white;height: 5px}
-#listexcursion,.divExcursion{margin-top: 200px;}
+#listexcursion,.divExcursion{margin-top: 300px;}
 .flecha{float: right}
 
 .recibirPortada{text-align: center;background-color: #6fa4aa;
@@ -558,7 +575,7 @@ body{overflow-y: auto;}
         margin-top: 5px;
     }
     .listaimg{width: 250px;}
-    #listexcursion div{margin-top: 2%}
+    #listexcursion div{margin-top: 40%}
     #btncrear, #btnleer, #btnExportar{
         width:200px;
         height: 100px;
