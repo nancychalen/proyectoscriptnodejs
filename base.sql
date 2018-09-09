@@ -6,7 +6,6 @@ CREATE TABLE public.usuarios (
 );
 
 
-ALTER TABLE public.usuarios OWNER TO postgres;
 
 CREATE TABLE public.alumnos (
     id SERIAL PRIMARY KEY,
@@ -14,8 +13,6 @@ CREATE TABLE public.alumnos (
     avatar character varying(255),
     puntaje integer not null
 );
-
-ALTER TABLE public.alumnos OWNER TO postgres;
 
 CREATE TABLE public.excursiones (
     id SERIAL PRIMARY KEY,
@@ -25,8 +22,6 @@ CREATE TABLE public.excursiones (
     portada character varying(255),
     idusuario integer not null
 );
-
-ALTER TABLE public.excursiones OWNER TO postgres;
 
 CREATE TABLE public.pasos (
     id SERIAL PRIMARY KEY,
@@ -39,7 +34,6 @@ CREATE TABLE public.pasos (
     idexcursion integer not null
 );
 
-ALTER TABLE public.pasos OWNER TO postgres;
 
 ALTER TABLE ONLY public.excursiones
     ADD CONSTRAINT fk_excursion_usuario FOREIGN KEY (idusuario) REFERENCES public.usuarios(id);
