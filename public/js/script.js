@@ -291,9 +291,24 @@ function validarsesion(){
             var flag=0;
             $.each(data, function(i, resultusuario){
                 if(usuario==resultusuario.usuario && pass==resultusuario.pass){
-                    localStorage.setItem("usuariologeado",resultusuario.id);
-                    window.location = "/menu";
-                    flag=1;
+                    $.ajax({
+                        url: '/identificacion',
+                        type: 'POST',
+                        data:{
+                            idusuariologeado:resultusuario.id
+                        },
+                        cache: false,
+                        success: function (data) {
+                            localStorage.setItem("usuariologeado",resultusuario.id);
+                            window.location = "/menu";
+                            flag=1;
+                        },
+                        error: function (data) {
+                            alert("error");
+                            console.log(data);
+                        }
+                    });
+                    
                 }
             });
             if(flag==0){
@@ -317,7 +332,7 @@ function cargarMenu(){
         },
         cache: false,
         success: function (data) {
-            $("#nombre").html(data[0].nombre);
+            //$("#nombre").html(data[0].nombre);
         },
         error: function (data) {
             alert("error");

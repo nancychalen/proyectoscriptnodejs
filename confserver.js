@@ -8,7 +8,8 @@ var exphbs  = require('express-handlebars');
 var formidable = require('formidable'),
     util = require('util'),
     fs   = require('fs-extra');
-
+var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 //conexion base de datos
 pg.defaults.ssl = true;
 const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/baseexcursion';
@@ -17,6 +18,16 @@ var conString = "postgres://postgres:postgres@localhost:5432/baseexcursion";
 
 var app = express();
 
+app.use(cookieParser())
+app.use(cookieSession({
+  name: 'session',
+  keys: ['123'],
+ 
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
+//app.use(app.router);
+var sesiones = require('./routes/sesiones');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -35,7 +46,14 @@ app.set('port', (process.env.PORT || 3000))
 //LLAMO POR RUTAS
 app.get('/', function (req,res) {
 	res.render('partials/index');
+    
+    
 });
+
+//app.get('/identificacion', sesiones.get_identificacion);
+app.post('/identificacion', sesiones.post_identificacion);
+//app.get('/bienvenida', sesiones.bienvenida);
+app.get('/salir', sesiones.salir);
 app.get('/menuexcursiones', function (req,res) {
 	res.render('partials/menuexcursiones');
 });
