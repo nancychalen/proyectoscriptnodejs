@@ -564,6 +564,6 @@ app.post('/subir', (req, res) => {
 
 console.log("Iniciar Servidor");
 // escuchar
-http.createServer(app).listen(app.get('port'), function(){
-	console.log('Server listening on port ' + app.get('port'));
-});
+console.log("Servidor iniciado");
+    // escuchar
+    app.listen(process.env.PORT || 8080, function(){console.log("the server is running");});
