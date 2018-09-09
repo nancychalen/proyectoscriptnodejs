@@ -41,7 +41,7 @@ app.engine( 'exphbs', exphbs( {
 } ) );
 
 app.set( 'view engine', 'exphbs' );
-app.set('port', (process.env.PORT || 3000))
+app.set('port', (process.env.PORT || 8080))
 
 //LLAMO POR RUTAS
 app.get('/', function (req,res) {
@@ -562,4 +562,6 @@ app.post('/subir', (req, res) => {
 
 console.log("Iniciar Servidor");
 // escuchar
-app.listen(3000);
+http.createServer(app).listen(app.get('port'), function(){
+	console.log('Server listening on port ' + app.get('port'));
+});
