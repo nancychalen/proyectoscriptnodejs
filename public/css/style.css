@@ -21,7 +21,7 @@ background: rgba(0,0,0,0);
 color: #3a7999;
 box-shadow: inset 0 0 0 3px #3a7999;
 }
-#nombre{
+#nombreUsuarioLogeado{
     font-size: 50px;
     margin-top: 5px
 }
@@ -565,7 +565,7 @@ body{overflow-y: auto;}
 
 @media only screen and (max-width: 550px) {
     
-    #feature {
+    #feature , .divCrear{
       padding:200px 22% 100px 22%;
     }
     #imgLogo{
@@ -584,5 +584,8 @@ body{overflow-y: auto;}
     }
     #btnExportar{
         padding-top: 15%
+    }
+    #regresar img{
+        width: 100px;
     }
 }
