@@ -8,28 +8,22 @@ var exphbs  = require('express-handlebars');
 var formidable = require('formidable'),
     util = require('util'),
     fs   = require('fs-extra');
-var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 //conexion base de datos
 pg.defaults.ssl = true;
-const connectionString = process.env.DATABASE_URL || 'postgres://ec2-184-72-247-70.compute-1.amazonaws.com:5432/d4iiq2fmt7j93l';
-var conString = "postgres://mcnhumzbkkfqgv:0919c6de2e7e75d9b13e08c67b58d1cbf1218f08d49a8874306d0ea0954cbfb1@ec2-184-72-247-70.compute-1.amazonaws.com:5432/d4iiq2fmt7j93l";
-//var conString = "postgres://postgres:postgres@localhost:5432/baseexcursion";
+//const connectionString = process.env.DATABASE_URL || 'postgres://ec2-184-72-247-70.compute-1.amazonaws.com:5432/d4iiq2fmt7j93l';
+//var conString = "postgres://mcnhumzbkkfqgv:0919c6de2e7e75d9b13e08c67b58d1cbf1218f08d49a8874306d0ea0954cbfb1@ec2-184-72-247-70.compute-1.amazonaws.com:5432/d4iiq2fmt7j93l";
+const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/baseexcursion';
+var conString = "postgres://postgres:postgres@localhost:5432/baseexcursion";
 
 //var conString = "postgres://ouotpxpfgzvdif:14f8728c627f11f8a487cdf5a21b6625efcf196a70f03529ebacd6aa9468c80e@ec2-54-163-249-237.compute-1.amazonaws.com:5432/df2rtm1mo3h4vl";
 
 var app = express();
 
-app.use(cookieParser())
 app.use(cookieSession({
   name: 'session',
-  keys: ['123'],
- 
-  // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  keys: ['123']
 }))
-//app.use(app.router);
-var sesiones = require('./routes/sesiones');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -48,55 +42,108 @@ app.set('port', (process.env.PORT || 8080))
 //LLAMO POR RUTAS
 app.get('/', function (req,res) {
 	res.render('partials/index');
-    
-    
+});
+app.post('/validarlogin', function (req,res) {
+    req.session.idusuariologeado=req.body.idusuariologeado;
+    //console.log(req.session.idusuariologeado);
+    res.end(req.session.idusuariologeado);
+});
+app.get('/cerrarsesion', function (req,res) {
+    req.session=null;
+    //console.log(req.session);
+    res.render('partials/index');
 });
 
-//app.get('/identificacion', sesiones.get_identificacion);
-app.post('/identificacion', sesiones.post_identificacion);
-//app.get('/bienvenida', sesiones.bienvenida);
-app.get('/salir', sesiones.salir);
 app.get('/menuexcursiones', function (req,res) {
-	res.render('partials/menuexcursiones');
+    console.log(req.session.idusuariologeado);
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/menuexcursiones');
+    }
 });
 app.get('/menuusuarios', function (req,res) {
-	res.render('partials/menuusuarios');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/menuusuarios');
+    }
 });
 app.get('/menualumnos', function (req,res) {
-	res.render('partials/menualumnos');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/menualumnos');
+    }
 });
 app.get('/listarexcursionesAlumno', function (req,res) {
 	res.render('partials/listarexcursionesAlumno');
 });
 app.get('/listarexcursionesUsuario', function (req,res) {
-	res.render('partials/listarexcursionesUsuario');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/listarexcursionesUsuario');
+    }
 });
 app.get('/leerexcursionUsuario', function (req,res) {
-	res.render('partials/leerexcursionUsuario');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/leerexcursionUsuario');
+    }
 });
 app.get('/leerexcursionAlumno', function (req,res) {
 	res.render('partials/leerexcursionAlumno');
 });
 app.get('/editarexcursion', function (req,res) {
-	res.render('partials/editarexcursion');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/editarexcursion');
+    }
 });
 app.get('/crearexcursion', function (req,res) {
-	res.render('partials/crearexcursion');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/crearexcursion');
+    }
 });
 app.get('/menu', function (req,res) {
-	res.render('partials/menu');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/menu');
+    }
 });
 app.get('/nuevoalumno', function (req,res) {
-	res.render('partials/nuevoalumno');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/nuevoalumno');
+    }
 });
 app.get('/nuevousuario', function (req,res) {
-	res.render('partials/nuevousuario');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/nuevousuario');
+    }
 });
 app.get('/editaralumno', function (req,res) {
-	res.render('partials/editaralumno');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/editaralumno');
+    }
 });
 app.get('/editarusuario', function (req,res) {
-	res.render('partials/editarusuario');
+    if(req.session.idusuariologeado==undefined){
+        res.render('partials/index');
+    }else{
+	    res.render('partials/editarusuario');
+    }
 });
 app.get('/iniciarsesion', function (req,res) {
 	res.render('partials/iniciarsesion');
@@ -520,6 +567,26 @@ app.post('/feliminarpasos', (req, res) => {
         }
 
         client.query("DELETE FROM pasos WHERE idexcursion="+req.body.idExcursion+";", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+
+            client.end();
+            return res.json(result.rows);
+            
+        }); 
+    });
+});
+
+app.post('/feliminarpasoporid', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        client.query("DELETE FROM pasos WHERE id="+req.body.idPaso+";", function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }

@@ -4,7 +4,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-4 col-sm-4">
-                    <a href="/">
+                    <a href="/cerrarsesion">
                       <img width='100px' src="images/logout.png" alt="Logo">
                     </a>
                 </div>

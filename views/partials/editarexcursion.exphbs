@@ -7,12 +7,12 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-4 col-sm-4">
-                    <a href="/">
+                    <a href="/cerrarsesion">
                       <img width='100px' src="images/logout.png" alt="Logo">
                     </a>
                 </div>
                  <div class="col-md-4 col-sm-4">
-                     <button id="guardareditar" class='btnGuardar'>EDITAR</button>
+                     <button id="guardareditar" class='btnGuardar'>GUARDAR CAMBIOS</button>
                   </div>
                 <div class="col-md-4 col-sm-4">
                     <a class="navbar-brand" href="/listarexcursionesUsuario" id="regresar"><img id="imgLogo" width='80px' src="../images/flecha.png" alt="Logo"></a>
