@@ -1,6 +1,7 @@
 <body onload="cargarIndex()">
  <!-- Header Start -->
  <header>
+  <div id="poneraudios" style="display:none"></div>
     <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -26,5 +27,5 @@
             
           </div>
      </section>
-      
+     
     </body>
