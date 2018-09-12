@@ -1,6 +1,6 @@
-
+<body onload="cargarLogeado()">
   <!-- Header Start -->
-      <header>
+      <header >
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -14,9 +14,12 @@
                         </a>
                         <a class="navbar-brand" href="/menualumnos">Regresar</a>
                       </div>
-                      <div class="col-md-8 col-sm-8"> 
+                      <div class="col-md-4 col-sm-4"> 
                           <button id="guardarAlumno">GUARDAR</button>
                       </div>
+                      <div class="col-md-4 col-sm-4">
+         <h1 id="nombreUsuarioLogeado"></h1>
+      </div>
                 </div>
                 </nav>
               </div>
@@ -59,4 +62,4 @@
             </div>
             
          </div>      
-        
+              </body>

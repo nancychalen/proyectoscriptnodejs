@@ -72,7 +72,7 @@ $('.añadirPortada').click(function () {
         },
         //si ha ocurrido un error
         error: function (data) {
-            alert("error");
+         //   alert("error");
             console.log(data);
         }
     });
@@ -99,7 +99,7 @@ $('.añadirAvatar').click(function () {
         },
         //si ha ocurrido un error
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
@@ -123,7 +123,7 @@ function listarExcursion(){
      
         },
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
@@ -144,7 +144,7 @@ function listarExcursion(){
         });
         },
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
@@ -178,7 +178,7 @@ function listarExcursionUsuario(){
         });
         },
         error: function (data) {
-            alert("error");
+          //  alert("error");
             console.log(data);
         }
     });
@@ -200,7 +200,7 @@ function cargarIndex(){
         });
         },
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
@@ -219,7 +219,23 @@ function listarAlumnos(){
             $("#nombre").html(data[0].nombre);
         },
         error: function (data) {
-            alert("error");
+            //alert("error");
+            console.log(data);
+        }
+    });
+    var idusuario=localStorage.getItem("usuariologeado");
+    $.ajax({
+        url: '/fcargarusuarioporid',
+        type: 'POST',
+        data: {
+            iduser:idusuario
+        },
+        cache: false,
+        success: function (data) {
+            $("#nombre").html(data[0].nombre);
+        },
+        error: function (data) {
+            //alert("error");
             console.log(data);
         }
     });
@@ -237,7 +253,7 @@ function listarAlumnos(){
         });
         },
         error: function (data) {
-            alert("error");
+            //alert("error");
             console.log(data);
         }
     });
@@ -256,7 +272,7 @@ function listarUsuarios(){
             $("#nombre").html(data[0].nombre);
         },
         error: function (data) {
-            alert("error");
+            //alert("error");
             console.log(data);
         }
     });
@@ -274,7 +290,7 @@ function listarUsuarios(){
         });
         },
         error: function (data) {
-            alert("error");
+            //alert("error");
             console.log(data);
         }
     });
@@ -294,6 +310,7 @@ function validarsesion(){
             $.each(data, function(i, resultusuario){
                 
                 if(usuario==resultusuario.usuario && pass==resultusuario.pass){
+                    flag=1;
                     $.ajax({
                         url: '/validarlogin',
                         type: 'POST',
@@ -302,13 +319,13 @@ function validarsesion(){
                         },
                         cache: false,
                         success: function (data) {
-                            flag=1;
+                           
                             localStorage.setItem("usuariologeado",resultusuario.id);
                             window.location = "/menu";
                             
                         },
                         error: function (data) {
-                            alert("error");
+                           // alert("error");
                             console.log(data);
                         }
                     });
@@ -320,7 +337,7 @@ function validarsesion(){
             }
         },
         error: function (data) {
-            alert("error");
+          // alert("error");
             console.log(data);
         }
     });
@@ -339,13 +356,47 @@ function cargarMenu(){
             $("#nombreUsuarioLogeado").html(data[0].nombre);
         },
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
 };
 
+function cargarLogeado(){
+    var idusuario=localStorage.getItem("usuariologeado");
+    $.ajax({
+        url: '/fcargarusuarioporid',
+        type: 'POST',
+        data: {
+            iduser:idusuario
+        },
+        cache: false,
+        success: function (data) {
+            $("#nombreUsuarioLogeado").html(data[0].nombre);
+        },
+        error: function (data) {
+           // alert("error");
+            console.log(data);
+        }
+    });
+};
 function cargarMenuExcursiones(){
+    var idusuario=localStorage.getItem("usuariologeado");
+    $.ajax({
+        url: '/fcargarusuarioporid',
+        type: 'POST',
+        data: {
+            iduser:idusuario
+        },
+        cache: false,
+        success: function (data) {
+            $("#nombreUsuarioLogeado").html(data[0].nombre);
+        },
+        error: function (data) {
+           // alert("error");
+            console.log(data);
+        }
+    });
     //localStorage.getItem("varPasar");
     var idusuario=localStorage.getItem("usuariologeado");
     $.ajax({
@@ -359,7 +410,7 @@ function cargarMenuExcursiones(){
             $("#nombreUsuarioLogeado").html(data[0].nombre);
         },
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
@@ -367,6 +418,22 @@ function cargarMenuExcursiones(){
 };
 
 function cargarAlumno(){
+     var idusuario=localStorage.getItem("usuariologeado");
+    $.ajax({
+        url: '/fcargarusuarioporid',
+        type: 'POST',
+        data: {
+            iduser:idusuario
+        },
+        cache: false,
+        success: function (data) {
+            $("#nombreUsuarioLogeado").html(data[0].nombre);
+        },
+        error: function (data) {
+           // alert("error");
+            console.log(data);
+        }
+    });
     //localStorage.getItem("varPasar");
     var id=localStorage.getItem("editaridAlumno");
     $.ajax({
@@ -382,7 +449,7 @@ function cargarAlumno(){
             $("#divAvatar").html("<img id='avatar' src='"+data[0].avatar+"' width='250px'></img>");
         },
         error: function (data) {
-            alert("error");
+          //  alert("error");
             console.log(data);
         }
     });
@@ -390,6 +457,22 @@ function cargarAlumno(){
 
 function cargarUsuario(){
     //localStorage.getItem("varPasar");
+     var idusuario=localStorage.getItem("usuariologeado");
+    $.ajax({
+        url: '/fcargarusuarioporid',
+        type: 'POST',
+        data: {
+            iduser:idusuario
+        },
+        cache: false,
+        success: function (data) {
+            $("#nombreUsuarioLogeado").html(data[0].nombre);
+        },
+        error: function (data) {
+           // alert("error");
+            console.log(data);
+        }
+    });
     var id=localStorage.getItem("editaridUsuario");
     $.ajax({
         url: '/fcargarusuarioporid',
@@ -404,7 +487,7 @@ function cargarUsuario(){
             $("#pass").attr("value",data[0].pass);
         },
         error: function (data) {
-            alert("error");
+          // alert("error");
             console.log(data);
         }
     });
@@ -426,7 +509,7 @@ function guardareditarAlumno(){
             window.location = "/menualumnos";
         },
         error: function (data) {
-            alert("error");
+        //    alert("error");
             console.log(data);
         }
     });
@@ -447,7 +530,7 @@ function guardareditarUsuario(){
             window.location = "/menuusuarios";
         },
         error: function (data) {
-            alert("error");
+          //  alert("error");
             console.log(data);
         }
     });
@@ -481,13 +564,13 @@ function cargarexcursionalumno(){
                 success: function (data) {
                 },
                 error: function (data) {
-                    alert("error");
+                 //   alert("error");
                     console.log(data);
                 }
             });
         },
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
@@ -540,13 +623,13 @@ function recibirExcursion(){
                     });
                 },
                 error: function (data) {
-                    alert("error");
+                  //  alert("error");
                     console.log(data);
                 }
             });
         },
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
@@ -611,13 +694,13 @@ function pasarEliminar(pos){
                     window.location.href="/listarexcursionesUsuario";
                 },
                 error: function (data) {
-                    alert("error");
+                  //  alert("error");
                     console.log(data);
                 }
             });
         },
         error: function (data) {
-            alert("error");
+         //   alert("error");
             console.log(data);
         }
     });
@@ -635,7 +718,7 @@ function eliminarAlumno(posalumno){
             window.location.href="/menualumnos";
         },
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
@@ -685,20 +768,20 @@ function eliminarUsuario(posusuario){
                                        
                                     },
                                     error: function (data) {
-                                        alert("error");
+                                      //  alert("error");
                                         console.log(data);
                                     }
                                 });
                                 
                             },
                             error: function (data) {
-                                alert("error");
+                                //alert("error");
                                 console.log(data);
                             }
                         });
                     },
                     error: function (data) {
-                        alert("error");
+                        //alert("error");
                         console.log(data);
                     }
                 });
@@ -719,7 +802,7 @@ function eliminarUsuario(posusuario){
                        }
                     },
                     error: function (data) {
-                        alert("error");
+                      //  alert("error");
                         console.log(data);
                     }
                 });
@@ -727,7 +810,7 @@ function eliminarUsuario(posusuario){
             
         },
         error: function (data) {
-            alert("error");
+          //  alert("error");
             console.log(data);
         }
     });
@@ -735,8 +818,8 @@ function eliminarUsuario(posusuario){
      
      
 }
-var cantVideos=2;
-var cantOpciones=3;
+var cantVideos=1;
+var cantOpciones=0;
 $('#guardarExcursion').click(function () {
     
         var errores=validarDatos();
@@ -790,10 +873,10 @@ $('#guardarExcursion').click(function () {
                                     data: formData,
                                     cache: false,
                                     success: function (datapasos) {
-                                        alert("guardopaso");
+                                        //alert("guardopaso");
                                     },
                                       error: function (data) {
-                                        alert("errorPaso");
+                                       //alert("errorPaso");
                                         console.log(data);
                                     }
                                 });
@@ -982,7 +1065,7 @@ function eliminarPaso(posPaso){
 
         },
         error: function (data) {
-            alert("error");
+           // alert("error");
             console.log(data);
         }
     });
@@ -990,6 +1073,19 @@ function eliminarPaso(posPaso){
 }
 
 function cargarEditar(){
+var idusers=localStorage.getItem("usuariologeado");
+    $.ajax({
+        url: '/fcargarusuarioporid',
+        type: 'POST',
+        data: {
+            iduser:idusers
+        },
+        cache: false,
+        success: function (data) {
+            $("#nombreUsuarioLogeado").html(data[0].nombre);
+        }
+    });
+    
     var posEditar= localStorage.getItem("varPasarEditar");
     formData={
         idExcursion:posEditar
@@ -1076,14 +1172,14 @@ function cargarEditar(){
                             cantVideos--;
                         },
                         error: function (data) {
-                            alert("error");
+                         //   alert("error");
                             console.log(data);
                         }
                     });
                     
                 },
                 error: function (data) {
-                    alert("error");
+                  //  alert("error");
                     console.log(data);
                 }
             });
@@ -1128,7 +1224,7 @@ $('#guardareditar').click(function () {
                                 //alert("guardopaso");
                             },
                               error: function (data) {
-                                alert("errorPaso");
+                               // alert("errorPaso");
                                 console.log(data);
                             }
                         });
@@ -1154,7 +1250,7 @@ $('#guardareditar').click(function () {
                                 //alert("guardopaso");
                             },
                               error: function (data) {
-                                alert("errorPaso");
+                               // alert("errorPaso");
                                 console.log(data);
                             }
                         });
@@ -1179,7 +1275,7 @@ $('#guardareditar').click(function () {
                     window.location.href="/listarexcursionesUsuario";
                 },
                 error: function (data) {
-                            alert("errorEx");
+                         //   alert("errorEx");
                             console.log(data);
                     }
             });

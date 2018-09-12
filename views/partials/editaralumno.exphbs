@@ -15,9 +15,12 @@
                         </a>
                         <a class="navbar-brand" href="/menualumnos">Regresar</a>
                       </div>
-                      <div class="col-md-8 col-sm-8"> 
+                      <div class="col-md-4 col-sm-4"> 
                           <button onclick="guardareditarAlumno()">GUARDAR</button>
                       </div>
+                       <div class="col-md-4 col-sm-4">
+         <h1 id="nombreUsuarioLogeado"></h1>
+      </div>
                 </div>
                 </nav>
               </div>
@@ -29,7 +32,7 @@
      
           <div class="container divCrear">
            
-            <h1 class="txtportada">CREAR ALUMNO</h1>
+            <h1 class="txtportada">EDITAR ALUMNO</h1>
             <div class="row">
                 <div class="col-sm-3">
                     <div class="col-md-3 col-sm-3">

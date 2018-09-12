@@ -11,13 +11,16 @@
                       <img width='100px' src="images/logout.png" alt="Logo">
                     </a>
                 </div>
-                 <div class="col-md-4 col-sm-4">
+                 <div class="col-md-2 col-sm-2">
+         <h1 id="nombreUsuarioLogeado"></h1>
+      </div>
+                 <div class="col-md-2 col-sm-2">
                      <button id="guardareditar" class='btnGuardar'>GUARDAR CAMBIOS</button>
                   </div>
                 <div class="col-md-4 col-sm-4">
                     <a class="navbar-brand" href="/listarexcursionesUsuario" id="regresar"><img id="imgLogo" width='80px' src="../images/flecha.png" alt="Logo"></a>
                  </div>
-                 
+                  
                </div>
               </div>
     </header><!-- header close -->
