@@ -40,7 +40,7 @@
                 <div id="divPortada" class="portada col-md-4 col-sm-4">PORTADA</div>
                 <div class="col-md-4 col-sm-4">
                     <form enctype="multipart/form-data" class="formularioPortada">
-                        <input name="archivo" type="file" id="imgPortada" />
+                        <input name="archivo" type="file" accept=".png,.jpg,.jpeg,.gif" id="imgPortada" />
                         <br />
                         <br />
                         <input type="button" class="añadirPortada" value="Añadir" />
@@ -76,7 +76,7 @@
                                    <div class="col-md-4 col-sm-4">
 
                                         <form enctype="multipart/form-data" class="formularioAudioa1">
-                                            <input name="archivo" type="file" id="audio" />
+                                            <input name="archivo" type="file" accept=".mp3,.wav,.ogg,.m4a" id="audio" />
                                             <br/><br/>
                                             <input type="button" class="añadirvideo" value="añadir" id="a1" onclick="subirAudio(this)"/>
                                             <br />
@@ -96,7 +96,7 @@
                                         <div class="col-md-4 col-sm-4" id="divPrg">
                                             <div class="fondoImg" id="divi1"></div>
                                             <form enctype="multipart/form-data" class="formularioImagenesi1">
-                                                <input name="archivo" type="file" id="imagen" />
+                                                <input name="archivo" type="file" accept=".png,.jpg,.jpeg,.gif" id="imagen" />
                                                 <br/><br/>
                                                 <input type="button" class="añadirvideo" value="añadir" id="i1" onclick="subirImagen(this)"/>
                                                 <br />
@@ -105,7 +105,7 @@
                                         <div class="col-md-4 col-sm-4" id="divPrg">
                                             <div class="fondoImg" id="divi2"></div>
                                             <form enctype="multipart/form-data" class="formularioImagenesi2">
-                                                <input name="archivo" type="file" id="imagen" />
+                                                <input name="archivo" type="file" accept=".png,.jpg,.jpeg,.gif" id="imagen" />
                                                 <br/><br/>
                                                 <input type="button" class="añadirvideo" value="añadir" id="i2" onclick="subirImagen(this)"/>
                                                 <br />
@@ -114,7 +114,7 @@
                                         <div class="col-md-4 col-sm-4" id="divPrg">   
                                             <div class="fondoImg" id="divi3"></div>
                                             <form enctype="multipart/form-data" class="formularioImagenesi3">
-                                                <input name="archivo" type="file" id="imagen" />
+                                                <input name="archivo" type="file" accept=".png,.jpg,.jpeg,.gif" id="imagen" />
                                                 <br/><br/>
                                                 <input type="button" class="añadirvideo" value="añadir" id="i3" onclick="subirImagen(this)"/>
                                                 <br />

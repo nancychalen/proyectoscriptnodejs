@@ -45,7 +45,7 @@
                 <div id="divPortada" class="portada col-md-4 col-sm-4">PORTADA</div>
                 <div class="col-md-4 col-sm-4">
                     <form enctype="multipart/form-data" class="formularioPortada">
-                        <input name="archivo" type="file" id="imgPortada" />
+                        <input name="archivo" type="file" accept=".png,.jpg,.jpeg,.gif" id="imgPortada" />
                         <br />
                         <br />
                         <input type="button" class="añadirPortada" value="Añadir" />
