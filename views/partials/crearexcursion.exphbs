@@ -120,10 +120,11 @@
                                                 <br />
                                             </form>
                                         </div>
+                                        
                                         </div>
                                     </div>
                                 </div>
-
+<button style="width:90%" onclick="eliminarPasoVacio(this)">Borrar Paso</button>
 
                             </div>
                         </div>
