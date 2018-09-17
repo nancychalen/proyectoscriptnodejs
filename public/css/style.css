@@ -578,9 +578,9 @@ color: tan;
 .botonPregunta img{
     width: 80%
 }
-.btnOpcion{width:90%}
+.btnOpcion{width:90%;  height:200px;}
 .divbtnpr{
-   height:200px;
+ 
 }
 body{overflow-y: auto;}
 @-webkit-keyframes bounce {
