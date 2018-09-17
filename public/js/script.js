@@ -700,7 +700,7 @@ function recibirExcursion(){
                 cache: false,
                 success: function (datapasos) {
                     $.each(datapasos, function(i, resPaso){
-                $("#recibirPasos").append("<div class='col-md-12 col-sm-12 videoSolo row' id='divPr"+contVideo+"'><div class='col-md-12 col-sm-12' id='player"+contVideo+"'><iframe style='display:none' id='framevideor"+contVideo+"' onload='pls(this)' src='"+resPaso.video+"?showinfo=0&controls=1&showinfo=0&iv_load_policy=2&rel=0' frameborder='0' allowfullscreen></iframe></div></div><div class='col-md-12 col-sm-12 preguntaSolo row'><div class='col-md-3 col-sm-3'><button onclick='reproducirPregunta(this)' class='botonPregunta bounce'><audio style='display:none' controls><source src='"+resPaso.pregunta+"' type='audio/mp3' ></audio><img id='imgPregunta' src='../images/play.jpg'></button></div><div class='col-md-3 col-sm-3'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img1' src='"+resPaso.opciona+"' class='listaimg'></button></div><div class='col-md-3 col-sm-3'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img2' src='"+resPaso.opcionb+"' class='listaimg'></button></div><div class='col-md-3 col-sm-3'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img3' class='listaimg'src='"+resPaso.opcionc+"'></button></div></div></div></div>");
+                $("#recibirPasos").append("<div class='col-md-12 col-sm-12 videoSolo row' id='divPr"+contVideo+"'><div class='col-md-12 col-sm-12' id='player"+contVideo+"'><iframe style='display:none' id='framevideor"+contVideo+"' onload='pls(this)' src='"+resPaso.video+"?showinfo=0&controls=1&showinfo=0&iv_load_policy=2&rel=0' frameborder='0' allowfullscreen></iframe></div></div><div class='col-md-12 col-sm-12 preguntaSolo id='divPre"+contVideo+"' row'><div class='col-md-3 col-sm-3'><button onclick='reproducirPregunta(this)' class='botonPregunta bounce'><audio style='display:none' controls><source src='"+resPaso.pregunta+"' type='audio/mp3' ></audio><img id='imgPregunta' src='../images/play.jpg'></button></div><div class='col-md-3 col-sm-3'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img1' src='"+resPaso.opciona+"' class='listaimg'></button></div><div class='col-md-3 col-sm-3'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img2' src='"+resPaso.opcionb+"' class='listaimg'></button></div><div class='col-md-3 col-sm-3'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img3' class='listaimg'src='"+resPaso.opcionc+"'></button></div></div></div></div>");
                 contVideo++;
                     });
                    
@@ -742,7 +742,13 @@ function recibirExcursion(){
     function onPlayerStateChange(event) {        
         if(event.data === 0) {            
             console.log(event.target.a.parentNode.nextSibling.firstChild.firstChild);
+            var divName=event.target.a.parentNode.nextSibling;
            event.target.a.parentNode.nextSibling.firstChild.firstChild.click();
+            var idName=divName.getAttribute('id');
+        console.log('miau: '+idName);
+            var target_offset = $('#'+idName).offset();
+            var target_top = target_offset.top;
+        $('html,body').animate({scrollTop:target_top},{duration:"slow"});
         }
     }
 
