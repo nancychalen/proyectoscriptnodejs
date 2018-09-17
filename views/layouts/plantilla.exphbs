@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link href="css/bootstrap.min.css" rel="stylesheet" >
+    <script src="js/jquery.js"></script>
+    <script src="js/youtubeapi.js"></script>
    </head>
   <body>
   {{{body}}}
@@ -27,7 +29,7 @@
             </div>
         </footer>        
            
-       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+       
       <script src="js/script.js"></script>
       
         <script src="js/bootstrap.js"></script>

@@ -26,10 +26,10 @@
         
     <div class="container divExcursion">
         <div class="recibirPortada row">
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-8 col-sm-8">
                 <img class="listaimg" id="portadaLeer" alt="" src="">
             </div>
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-4 col-sm-4">
                 <h1 id="tituloLeer"></h1>
                 <h2 id="descripcionLeer"></h2>
                 <h3 id="creditosLeer"></h3>
@@ -50,3 +50,9 @@
     <div id="divAudiosEx"></div>
 
 </body>
+
+<script>
+    
+   
+    
+</script>

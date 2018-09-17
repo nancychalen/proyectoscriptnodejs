@@ -1,3 +1,5 @@
+
+
 function traducirvideo(btnV){
     var valor=btnV.getAttribute("id");
     var ruta = $('#linkvideo'+valor).val();
@@ -625,9 +627,21 @@ function cargarexcursionalumno(){
                 data: {
                     nvpuntaje:nuevopuntaje,
                     idalumno:localStorage.getItem("varidAlumno")
+                    
                 },
                 cache: false,
                 success: function (data) {
+                    //var myiframe = $('#framevideo1').onrea;
+                    //console.log(myiframe);
+                   //console.log("m "+myiframe.readyState);
+//                    myiframe.onreadystatechange = function() {
+//                            alert('testing 2'); // this fires for IE
+//                            if (myiframe.readyState == 'complete') {
+//                                alert('testing 3'); // this never fires
+//                                iframeIsLoaded();
+//                            }
+//                    }
+                    
                 },
                 error: function (data) {
                  //   alert("error");
@@ -644,6 +658,7 @@ function cargarexcursionalumno(){
     
     recibirExcursion();
     };
+
 function cargarexcursionusuario(){
     var idusers=localStorage.getItem("usuariologeado");
     $.ajax({
@@ -659,6 +674,9 @@ function cargarexcursionusuario(){
     });
     recibirExcursion();
     };
+ var player;
+var idfinal;
+var contVideo=0;
 function recibirExcursion(){
     var posExcursion=localStorage.getItem("varPasar");
     formData={
@@ -682,13 +700,17 @@ function recibirExcursion(){
                 cache: false,
                 success: function (datapasos) {
                     $.each(datapasos, function(i, resPaso){
-                $("#recibirPasos").append("<div class='col-md-12 col-sm-12 videoSolo row'>\
-                                            <div class='col-md-12 col-sm-12'><iframe width='650' height='250' src='"+resPaso.video+"' frameborder='0' allowfullscreen></iframe></div></div>\
-                                            <div class='col-md-12 col-sm-12 videoSolo row'>\
-                                            <div class='col-md-12 col-sm-12'><button class='listaimg'><audio controls><source src='"+resPaso.pregunta+"' type='audio/mp3' ></audio></button></div></div><br/>\
-                                           <div class='col-md-12 col-sm-12 videoSolo row'>\<div class='col-md-4 col-sm-4'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img1' src='"+resPaso.opciona+"' class='listaimg'></button></div><div class='col-md-4 col-sm-4'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img2' src='"+resPaso.opcionb+"' class='listaimg'></button></div><div class='col-md-4 col-sm-4'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img3' class='listaimg'src='"+resPaso.opcionc+"'></button></div></div></div>");
-
+                $("#recibirPasos").append("<div class='col-md-12 col-sm-12 videoSolo row' id='divPr"+contVideo+"'><div class='col-md-12 col-sm-12' id='player"+contVideo+"'><iframe style='display:none' id='framevideor"+contVideo+"' onload='pls(this)' src='"+resPaso.video+"?showinfo=0&controls=1&showinfo=0&iv_load_policy=2&rel=0' frameborder='0' allowfullscreen></iframe></div></div><div class='col-md-12 col-sm-12 preguntaSolo row'><div class='col-md-3 col-sm-3'><button onclick='reproducirPregunta(this)' class='botonPregunta bounce'><audio style='display:none' controls><source src='"+resPaso.pregunta+"' type='audio/mp3' ></audio><img id='imgPregunta' src='../images/play.jpg'></button></div><div class='col-md-3 col-sm-3'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img1' src='"+resPaso.opciona+"' class='listaimg'></button></div><div class='col-md-3 col-sm-3'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img2' src='"+resPaso.opcionb+"' class='listaimg'></button></div><div class='col-md-3 col-sm-3'><button class='btnOpcion' onclick='validarRespuesta(this,"+resPaso.respuesta+")'><img id='img3' class='listaimg'src='"+resPaso.opcionc+"'></button></div></div></div></div>");
+                contVideo++;
                     });
+                   
+//                    var txt=$('#framevideo1').attr('src');
+//                    var varios=txt.split('/');
+//                    console.log(varios);
+//                    idvideo=varios[4];
+//                    console.log('id: '+idvideo);
+                    // create youtube player
+                   
                 },
                 error: function (data) {
                   //  alert("error");
@@ -704,21 +726,97 @@ function recibirExcursion(){
 }
 
 
+//function onYouTubePlayerAPIReady() {
+//        player = new YT.Player('player', {
+//          width: '100%',
+//          videoId: idfinal,
+//          events: {
+//            'onReady': onPlayerReady,
+//            'onStateChange': onPlayerStateChange
+//          }
+//        });
+//    }
+
+
+    // when video ends
+    function onPlayerStateChange(event) {        
+        if(event.data === 0) {            
+            console.log(event.target.a.parentNode.nextSibling.firstChild.firstChild);
+           event.target.a.parentNode.nextSibling.firstChild.firstChild.click();
+        }
+    }
+
+function pls(btn){
+    //alert("pls vale");
+//    console.log(btn);
+//    console.log("m "+btn.onreadystatechange);
+//    //console.log(document.readyState);
+//    btn.onreadystatechange = function() {
+//        alert('testing 2'); // this fires for IE
+////                            if (myiframe.readyState == 'complete') {
+////                                alert('testing 3'); // this never fires
+////                                iframeIsLoaded();
+////                            }
+//                    }
+    var tener=btn.getAttribute('id').split('o');
+    var numero=tener[1];
+    //alert(numero);
+    var divParaVideo=$('#playe'+numero);
+    //console.log(divParaVideo);
+      var txt=btn.getAttribute('src');
+                    var varios=txt.split('/');
+                    //console.log(varios);
+                    var idvideo=varios[4];
+                    var idvideovarios=idvideo.split('?');
+                    idfinal=idvideovarios[0];
+                    //console.log('id: '+idfinal);
+    
+            player = new YT.Player('playe'+numero, {
+                  width: '100%',
+                  videoId: idfinal,
+                  events: {
+                    'onStateChange': onPlayerStateChange
+                  }
+                });
+
+}
+
+ 
+
+function reproducirPregunta(btn){
+    console.log(btn.firstChild);
+    btn.firstChild.play();
+}
 
 function validarRespuesta(btn, respuesta){
     var padre=btn.parentNode.parentNode;
+    console.log(padre.childNodes);
     if(btn.firstChild.getAttribute("id")=="img"+respuesta){
-       $("#divAudiosEx").html("<audio id='correcta' controls autoplay><source src='../audios/bien.wav' type='audio/wav'></audio>");
-        padre.childNodes[respuesta+1].firstChild.setAttribute("style","background-color:red");
+       $("#divAudiosEx").html("<audio id='correcta' controls autoplay><source src='../audios/bien.mpeg' type='audio/mpeg'></audio>");
+        console.log(respuesta);
+        window.setTimeout(continuar,3000,padre.nextSibling);
+        padre.childNodes[respuesta].firstChild.setAttribute("style","background-color:red");
         //console.log(padre.childNodes[2]);
+        padre.childNodes[1].firstChild.disabled=true;
         padre.childNodes[2].firstChild.disabled=true;
         padre.childNodes[3].firstChild.disabled=true;
-        padre.childNodes[4].firstChild.disabled=true;
     }else{
        //alert("Respuesta incorrecta, elije la numero "+respuesta);
-        $("#divAudiosEx").html("<audio id='incorrecta' controls autoplay><source src='../audios/mal.wav' type='audio/wav' ></audio>");
-        padre.childNodes[respuesta+1].firstChild.setAttribute("style","background-color:red");
+        $("#divAudiosEx").html("<audio id='incorrecta' controls autoplay><source src='../audios/maleligebien.mpeg' type='audio/mpeg' ></audio>");
+        padre.childNodes[respuesta].firstChild.setAttribute("style","background-color:red");
     }
+}
+function continuar(divName){
+    console.log(divName);
+    if(divName!=null){
+        var idName=divName.getAttribute('id');
+        console.log('miau: '+idName);
+        $("#divAudiosEx").html("<audio id='correcta' controls autoplay><source src='../audios/continuaravideo.mpeg' type='audio/mpeg'></audio>");
+        var target_offset = $('#'+idName).offset();
+        var target_top = target_offset.top;
+        $('html,body').animate({scrollTop:target_top},{duration:"slow"});
+    }
+    
 }
 function pasarusuarioexcursion(pos){
     localStorage.setItem("varPasar",pos);
