@@ -105,7 +105,7 @@ box-shadow: inset 0 0 0 3px #3a7999;
 }
   
 .paso, .portada{
-    background-color: aquamarine; width: 200px; height: 200px; margin: 10px;
+    background-color: aquamarine; width: 450px; height: 200px; margin: 5px;
 }
 #portada{
     height: 100%;
@@ -113,7 +113,7 @@ box-shadow: inset 0 0 0 3px #3a7999;
 
 .styleAudio{width: 200px}
 .listaimg{width: 350px;}
-.fondoImg{background-color:aquamarine;width: 200px;height: 200px}
+.fondoImg{background-color:coral;width: 200px;height: 200px}
 .imgPregunta{width: 180px;height: 180px}
 .styleVideo{height: 100%}
 #jquery-script-menu {
@@ -552,11 +552,11 @@ color: tan;
     padding-bottom: 50px;
     padding-left: 10%;}
 .videoSolo{
-    background-color: #6fa4aa; margin: 10px; padding: 10px;
+    background-color:firebrick; margin: 10px; padding: 10px;
 }
-.videoSolo img{width: 150px}
+.videoSolo img{width: 300px}
 
-.crearVI{margin-top: 30px;background-color: #6fa4aa;padding-top: 50px;
+.crearVI{margin-top: 10px;background-color:firebrick ;padding-top:10px;
     padding-right: 30px;
     padding-bottom: 50px;
     padding-left: 80px;}
@@ -574,7 +574,11 @@ body{overflow-y: auto;}
         margin-left: 30%;
         margin-top: 5px;
     }
-    .listaimg{width: 250px;}
+    .listaimg{
+         max-width: 50px;
+        width: auto;
+        padding: 25px;
+    }
     #listexcursion div{margin-top: 40%}
     #btncrear, #btnleer, #btnExportar{
         width:200px;
